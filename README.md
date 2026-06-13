@@ -1,56 +1,95 @@
-
 # 🚀 ResumePilot
 
-ResumePilot is an AI-powered resume analysis and interview preparation platform that helps job seekers evaluate their resumes against a target job description and generate a personalized interview preparation strategy.
+> AI-Powered Resume Analysis & Interview Preparation Platform
 
-By leveraging Google's Gemini AI, ResumePilot provides actionable insights, identifies skill gaps, generates interview questions, and creates tailored resumes to improve a candidate's chances of success.
+ResumePilot helps job seekers bridge the gap between their current profile and their dream role.
+
+Simply upload your resume (or provide a self-description), paste a target job description, and let AI generate a personalized interview preparation strategy, skill-gap analysis, interview questions, and a tailored resume.
+
+---
+
+## 🌟 Demo Preview
+
+### Landing Page
+
+<img width="100%" alt="ResumePilot Landing Page" src="./screenshots/landing-page.png">
+
+### Resume Upload & Job Description Analysis
+
+<img width="100%" alt="Resume Upload" src="./screenshots/upload-screen.png">
+
+### AI Generated Preparation Roadmap
+
+<img width="100%" alt="Preparation Roadmap" src="./screenshots/roadmap.png">
 
 ---
 
 ## ✨ Features
 
-### 📄 Resume Analysis
+### 🎯 Job Match Analysis
 
-* Upload your resume in PDF format
-* Extract and analyze resume content
-* Compare resume against a target job description
+Compare a candidate's profile against a target job description and receive an AI-generated compatibility score.
 
-### 🎯 Job Match Scoring
+### 📊 Skill Gap Detection
 
-* AI-generated compatibility score
-* Evaluation based on skills, experience, and keywords
-* Detailed feedback on strengths and weaknesses
-
-### 💡 Skill Gap Analysis
-
-* Identify missing skills required for the role
-* Highlight areas for improvement
-* Personalized recommendations
+Identify missing technologies, frameworks, experiences, and qualifications required for the target role.
 
 ### 🎤 Interview Preparation
 
-Generate role-specific interview questions:
+Generate role-specific:
 
 * Technical Questions
 * Behavioral Questions
 * Scenario-Based Questions
 
-### 📅 Preparation Roadmap
+### 🗺️ Personalized Roadmap
 
-* Day-wise preparation plan
-* Structured learning path
-* Interview readiness guidance
+Receive a structured multi-day preparation plan tailored to the selected role.
 
-### 📑 AI Resume Generation
+Example:
 
-* Generate an optimized resume tailored to the target role
-* Download professionally formatted PDF resumes
+* Foundations & Core Concepts
+* Advanced Technical Topics
+* Generative AI / Domain Knowledge
+* System Design & Deployment
+* Mock Interview Preparation
 
-### 🔐 Secure Authentication
+### 📄 AI Resume Generation
 
-* JWT-based authentication
-* Protected routes and user sessions
-* Secure user data management
+Generate an optimized resume tailored specifically to the job description.
+
+### 🔐 Authentication System
+
+Secure user authentication using JWT.
+
+### 📁 Resume Upload
+
+Supports resume uploads for profile extraction and analysis.
+
+---
+
+## 🏗️ System Workflow
+
+```text
+User Resume / Self Description
+            │
+            ▼
+Target Job Description
+            │
+            ▼
+Google Gemini AI Analysis
+            │
+ ┌──────────┼──────────┐
+ ▼          ▼          ▼
+Match      Skill      Interview
+Score      Gaps       Questions
+ │
+ ▼
+Preparation Roadmap
+ │
+ ▼
+Tailored Resume PDF
+```
 
 ---
 
@@ -61,6 +100,7 @@ Generate role-specific interview questions:
 * React.js
 * Vite
 * SCSS
+* Responsive UI Design
 
 ### Backend
 
@@ -73,9 +113,9 @@ Generate role-specific interview questions:
 
 ### Authentication
 
-* JSON Web Tokens (JWT)
+* JWT (JSON Web Tokens)
 
-### AI Integration
+### AI
 
 * Google Gemini API
 
@@ -85,27 +125,56 @@ Generate role-specific interview questions:
 
 ---
 
+## 📂 Project Structure
+
+```text
+ResumePilot
+│
+├── client
+│   ├── public
+│   ├── src
+│   │   ├── components
+│   │   ├── pages
+│   │   ├── services
+│   │   ├── styles
+│   │   └── utils
+│
+├── server
+│   ├── controllers
+│   ├── routes
+│   ├── middleware
+│   ├── models
+│   ├── services
+│   └── config
+│
+├── README.md
+└── package.json
+```
+
+---
+
 ## ⚙️ Installation
 
-### Clone the Repository
+### Clone Repository
 
 ```bash
 git clone https://github.com/VishalVab01/ResumePilot.git
-
 cd ResumePilot
 ```
 
-### Install Frontend Dependencies
+### Install Dependencies
+
+Frontend
 
 ```bash
 cd client
 npm install
 ```
 
-### Install Backend Dependencies
+Backend
 
 ```bash
-cd ../server
+cd server
 npm install
 ```
 
@@ -113,7 +182,7 @@ npm install
 
 ## 🔑 Environment Variables
 
-Create a `.env` file in the server directory and add:
+Create a `.env` file inside the server directory.
 
 ```env
 PORT=5000
@@ -127,23 +196,21 @@ GEMINI_API_KEY=your_gemini_api_key
 
 ---
 
-## ▶️ Running the Project
+## ▶️ Run Locally
 
-### Start Backend
+Backend
 
 ```bash
-cd server
 npm run dev
 ```
 
-### Start Frontend
+Frontend
 
 ```bash
-cd client
 npm run dev
 ```
 
-Application will be available at:
+Open:
 
 ```text
 http://localhost:5173
@@ -151,57 +218,32 @@ http://localhost:5173
 
 ---
 
-## 📂 Project Structure
+## 🎯 Key Learning Outcomes
 
-```text
-ResumePilot/
-│
-├── client/
-│   ├── src/
-│   ├── public/
-│   └── package.json
-│
-├── server/
-│   ├── controllers/
-│   ├── routes/
-│   ├── models/
-│   ├── middleware/
-│   ├── services/
-│   └── package.json
-│
-├── README.md
-└── .gitignore
-```
+This project provided hands-on experience with:
 
----
-
-## 🔄 Workflow
-
-1. User registers or logs in.
-2. User uploads their resume.
-3. User provides a target job description.
-4. ResumePilot analyzes the resume using Gemini AI.
-5. The system generates:
-
-   * Match Score
-   * Skill Gap Analysis
-   * Technical Questions
-   * Behavioral Questions
-   * Preparation Roadmap
-6. User can generate and download a tailored resume PDF.
+* Full-Stack Application Development
+* REST API Design
+* JWT Authentication
+* File Upload Handling
+* MongoDB Data Modeling
+* Google Gemini API Integration
+* Prompt Engineering
+* PDF Generation with Puppeteer
+* Building Production-Style User Workflows
 
 ---
 
 ## 🚀 Future Improvements
 
-* ATS score simulation
-* Multiple resume templates
-* Cover letter generation
-* Resume version management
-* Interview answer evaluation
-* Mock interview chatbot
-* LinkedIn profile analysis
-* Job recommendation engine
+* ATS Optimization Score
+* Cover Letter Generation
+* AI Mock Interview Assistant
+* Voice-Based Interview Practice
+* LinkedIn Profile Analysis
+* Job Recommendation Engine
+* Multiple Resume Templates
+* Resume Version Management
 
 ---
 
@@ -211,16 +253,16 @@ Contributions, issues, and feature requests are welcome.
 
 1. Fork the repository
 2. Create a feature branch
-3. Commit your changes
-4. Push the branch
+3. Commit changes
+4. Push to your branch
 5. Open a Pull Request
 
 ---
 
-## 📬 Contact
+## 👨‍💻 Author
 
 **Vishal Vaibhav**
 
 GitHub: https://github.com/VishalVab01
 
-If you found this project useful, consider giving it a ⭐ on GitHub.
+If you found this project useful, consider giving it a ⭐.
