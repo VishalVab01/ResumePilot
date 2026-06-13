@@ -1,6 +1,12 @@
-# 🚀 ResumePilot
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)
+![Node.js](https://img.shields.io/badge/Node.js-Backend-339933?logo=node.js)
+![Express](https://img.shields.io/badge/Express.js-Framework-black?logo=express)
+![MongoDB](https://img.shields.io/badge/MongoDB-Database-47A248?logo=mongodb)
+![Gemini](https://img.shields.io/badge/Google-Gemini-4285F4?logo=google)
+![JWT](https://img.shields.io/badge/JWT-Authentication-orange)
+![License](https://img.shields.io/badge/License-MIT-blue)
 
-> AI-Powered Resume Analysis & Interview Preparation Platform
+> AI-Powered Resume Analysis & Interview Preparation Platform# 🚀 ResumePilot
 
 ResumePilot helps job seekers bridge the gap between their current profile and their dream role.
 
