@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import "../style/home.scss"
 import { useInterview } from '../hooks/useInterview.js'
 import { useNavigate } from 'react-router'
@@ -8,14 +8,68 @@ const Home = () => {
     const { loading, generateReport,reports } = useInterview()
     const [ jobDescription, setJobDescription ] = useState("")
     const [ selfDescription, setSelfDescription ] = useState("")
+    const [ resumeFile, setResumeFile ] = useState(null)
+    const [ uploadSuccess, setUploadSuccess ] = useState(false)
+    const [ formError, setFormError ] = useState("")
+    const [ isDragging, setIsDragging ] = useState(false)
     const resumeInputRef = useRef()
 
     const navigate = useNavigate()
 
+    useEffect(() => {
+        if (!uploadSuccess) return
+
+        const timeoutId = window.setTimeout(() => {
+            setUploadSuccess(false)
+        }, 4500)
+
+        return () => window.clearTimeout(timeoutId)
+    }, [ uploadSuccess, resumeFile ])
+
+    const handleResumeSelected = (file) => {
+        if (!file) return
+
+        if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
+            setFormError("Please choose a PDF file.")
+            return
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            setFormError("The PDF must be 5 MB or smaller.")
+            return
+        }
+
+        setResumeFile(file)
+        setFormError("")
+        setUploadSuccess(true)
+    }
+
+    const handleResumeChange = (event) => {
+        handleResumeSelected(event.target.files[ 0 ])
+    }
+
+    const handleResumeDrop = (event) => {
+        event.preventDefault()
+        setIsDragging(false)
+
+        const file = event.dataTransfer.files[ 0 ]
+        if (!file) return
+
+        handleResumeSelected(file)
+    }
+
     const handleGenerateReport = async () => {
-        const resumeFile = resumeInputRef.current.files[ 0 ]
-        const data = await generateReport({ jobDescription, selfDescription, resumeFile })
-        navigate(`/interview/${data._id}`)
+        setFormError("")
+
+        try {
+            const data = await generateReport({ jobDescription, selfDescription, resumeFile })
+            navigate(`/interview/${data._id}`)
+        } catch (error) {
+            setFormError(
+                error.response?.data?.message
+                || "We could not generate your interview strategy. Please try again."
+            )
+        }
     }
 
     if (loading) {
@@ -75,13 +129,42 @@ const Home = () => {
                                 Upload Resume
                                 <span className='badge badge--best'>Best Results</span>
                             </label>
-                            <label className='dropzone' htmlFor='resume'>
+                            <label
+                                className={`dropzone${resumeFile ? ' dropzone--selected' : ''}${isDragging ? ' dropzone--dragging' : ''}`}
+                                htmlFor='resume'
+                                onDragEnter={(event) => {
+                                    event.preventDefault()
+                                    setIsDragging(true)
+                                }}
+                                onDragOver={(event) => {
+                                    event.preventDefault()
+                                    setIsDragging(true)
+                                }}
+                                onDragLeave={() => setIsDragging(false)}
+                                onDrop={handleResumeDrop}
+                            >
                                 <span className='dropzone__icon'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 16 12 12 8 16" /><line x1="12" y1="12" x2="12" y2="21" /><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3" /></svg>
+                                    {resumeFile ? (
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
+                                    ) : (
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 16 12 12 8 16" /><line x1="12" y1="12" x2="12" y2="21" /><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3" /></svg>
+                                    )}
                                 </span>
-                                <p className='dropzone__title'>Click to upload or drag &amp; drop</p>
-                                <p className='dropzone__subtitle'>PDF or DOCX (Max 5MB)</p>
-                                <input ref={resumeInputRef} hidden type='file' id='resume' name='resume' accept='.pdf,.docx' />
+                                <p className='dropzone__title'>
+                                    {resumeFile ? resumeFile.name : 'Click to upload or drag & drop'}
+                                </p>
+                                <p className='dropzone__subtitle'>
+                                    {resumeFile ? 'Resume ready - click to replace' : 'PDF (Max 5MB)'}
+                                </p>
+                                <input
+                                    ref={resumeInputRef}
+                                    hidden
+                                    type='file'
+                                    id='resume'
+                                    name='resume'
+                                    accept='application/pdf,.pdf'
+                                    onChange={handleResumeChange}
+                                />
                             </label>
                         </div>
 
@@ -144,6 +227,46 @@ const Home = () => {
                 <a href='#'>Terms of Service</a>
                 <a href='#'>Help Center</a>
             </footer>
+
+            {uploadSuccess && resumeFile && (
+                <div className='upload-toast' role='status' aria-live='polite'>
+                    <span className='upload-toast__icon' aria-hidden='true'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
+                    </span>
+                    <div className='upload-toast__content'>
+                        <strong>Upload successful!</strong>
+                        <span>{resumeFile.name}</span>
+                    </div>
+                    <button
+                        type='button'
+                        className='upload-toast__close'
+                        onClick={() => setUploadSuccess(false)}
+                        aria-label='Dismiss upload confirmation'
+                        title='Dismiss'
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+                    </button>
+                </div>
+            )}
+
+            {formError && (
+                <div className='upload-toast upload-toast--error' role='alert'>
+                    <span className='upload-toast__icon' aria-hidden='true'>!</span>
+                    <div className='upload-toast__content'>
+                        <strong>Something went wrong</strong>
+                        <span>{formError}</span>
+                    </div>
+                    <button
+                        type='button'
+                        className='upload-toast__close'
+                        onClick={() => setFormError("")}
+                        aria-label='Dismiss error'
+                        title='Dismiss'
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+                    </button>
+                </div>
+            )}
         </div>
     )
 }
