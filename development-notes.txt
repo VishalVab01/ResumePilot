@@ -3,3 +3,4 @@
 3. Reviewed upload success feedback styling.
 4. Checked backend error response formatting.
 5. Confirmed the PDF parser cleanup path.
+6. Reviewed mobile popup positioning.
