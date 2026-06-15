@@ -1,1 +1,2 @@
 1. Verified the resume upload workflow.
+2. Confirmed PDF file validation behavior.
