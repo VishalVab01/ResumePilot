@@ -1,3 +1,4 @@
 1. Verified the resume upload workflow.
 2. Confirmed PDF file validation behavior.
 3. Reviewed upload success feedback styling.
+4. Checked backend error response formatting.
