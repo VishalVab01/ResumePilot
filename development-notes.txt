@@ -2,3 +2,4 @@
 2. Confirmed PDF file validation behavior.
 3. Reviewed upload success feedback styling.
 4. Checked backend error response formatting.
+5. Confirmed the PDF parser cleanup path.
