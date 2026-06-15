@@ -7,4 +7,4 @@
 7. Checked accessible status messaging.
 8. Verified the frontend production build.
 9. Confirmed local API availability.
-10. Completed the maintenance notes review.
+10. Completed the maintenance notes review
