@@ -4,3 +4,4 @@
 4. Checked backend error response formatting.
 5. Confirmed the PDF parser cleanup path.
 6. Reviewed mobile popup positioning.
+7. Checked accessible status messaging.
