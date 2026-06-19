@@ -8,3 +8,23 @@
 8. Verified the frontend production build.
 9. Confirmed local API availability.
 10. Completed the maintenance notes review
+11. Added a placeholder note for resume scoring edge cases.
+12. Recorded a reminder to review empty-state wording.
+13. Noted a follow-up for upload timeout messaging.
+14. Captured a small QA item for drag-and-drop uploads.
+15. Added a note about testing renamed PDF files.
+16. Logged a reminder to check browser cache behavior.
+17. Noted a maintenance item for dependency review.
+18. Captured a follow-up for mobile keyboard spacing.
+19. Added a note for checking dark-mode contrast.
+20. Recorded a reminder to validate long file names.
+21. Logged a QA pass item for parser warning text.
+22. Added a note about duplicate upload handling.
+23. Captured a reminder to review loading indicators.
+24. Noted a future check for network retry behavior.
+25. Added a maintenance note for route-level smoke tests.
+26. Recorded a reminder to verify accessible labels.
+27. Logged a note for checking local storage cleanup.
+28. Added a follow-up for malformed PDF examples.
+29. Captured a reminder to review success toast timing.
+30. Noted a final QA item for production environment checks.
